@@ -1,6 +1,6 @@
 # Purpose
 
-Build and import a pfSense image for usage on AWS using Hashicorp Packer with Virtualbox or KVM backend.
+Build and import a pfSense image for usage on AWS using Hashicorp Packer with QEMU backend.
 
 # Information
 It is not intended that the repository will see any updates, bugs fixes or further adaption to new pfSense versions. Feel free to do whatever you like with it in your own fork.
