@@ -17,7 +17,8 @@
 	"<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
         "8<wait5><enter>",
         "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/config27.xml >/conf/config.xml<wait5><enter>",
-        "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/kernel.tar.gz >/kernel.tar.gz<wait5><enter>",
+        "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/if_ena.ko >/boot/kernel/if_ena.ko<wait5><enter>",
+        "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/loader.conf >/boot/loader.conf<wait5><enter>",
 	"<wait10>",
         "reboot<wait5><enter>"
       ],

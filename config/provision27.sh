@@ -1,7 +1,5 @@
 #!/bin/sh
 
-cd /
-tar xvzf kernel.tar.gz
 
 # replace <if></if> section of config.xml with proper names for running on AWS EC2
 sed -i -E 's$<if>em0</if>$<if>ena0</if>$g' /conf/config.xml
