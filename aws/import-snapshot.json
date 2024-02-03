@@ -1,0 +1,8 @@
+{
+    "Description": "pfSense CE 2.x.x BYOL",
+    "Format": "vmdk",
+    "UserBucket": {
+        "S3Bucket": "importova0102",
+        "S3Key": "pfSense-CE-2.7.x_20240203_125239.vmdk"
+    }
+}

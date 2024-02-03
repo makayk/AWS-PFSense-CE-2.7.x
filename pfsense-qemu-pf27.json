@@ -1,0 +1,80 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<wait10><enter>",
+        "<wait2><enter>",
+        "<wait5><down>",
+        "<wait5><enter>",
+        "<wait5><enter>",
+        "<wait5><enter>",
+        "<wait5><left>",
+        "<wait5><enter>",
+        "<wait5><enter>",
+        "<wait5><enter>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><enter>",
+        "<wait5><enter>",
+	"<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "8<wait5><enter>",
+        "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/config27.xml >/conf/config.xml<wait5><enter>",
+        "<wait5>curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/kernel.tar.gz >/kernel.tar.gz<wait5><enter>",
+	"<wait10>",
+        "reboot<wait5><enter>"
+      ],
+      "boot_wait": "70s",
+      "disk_size": "20096",
+      "format": "raw",
+      "headless": "true",
+      "http_directory": "config",
+      "http_port_min": "8100",
+      "iso_checksum": "sha256:441005f79ea0c155bc4b830a2b4207f8c0804cf7b075d2a6489c0a136cbc5d51",
+      "iso_url": "input/pfSense-CE-2.7.2-RELEASE-amd64.iso",
+      "net_device": "e1000",
+      "output_directory": "output-qemu",
+      "qemuargs": [
+        [
+          "-m",
+          "1024M"
+        ],
+        [
+          "-smp",
+          "1"
+        ],
+
+
+        [
+          "-netdev",
+          "user,id=user.0,hostfwd=tcp::{{ .SSHHostPort }}-:6736,hostfwd=tcp::443-:443"
+        ],
+
+        ["-device", "e1000,netdev=user.0"],
+        ["-netdev", "user,id=user.1"],
+        ["-device", "e1000,netdev=user.1"]
+      ],
+      "shutdown_command": "shutdown -p now",
+      "ssh_password": "pfsense",
+      "ssh_timeout": "500s",
+      "ssh_username": "admin",
+      "type": "qemu",
+      "vm_name": "pfSense-CE-2.7.x_{{ isotime \"20060102_030405\"}}.raw",
+      "vnc_bind_address": "127.0.0.1",
+      "vnc_port_max": "5900",
+      "vnc_port_min": "5900"
+    }
+  ],
+  "post-processors": [
+    {
+      "inline": [
+        "IMAGE=\"$(ls -1tr output-qemu/*.raw | tail -n 1)\"; qemu-img convert -f raw -O vmdk -o subformat=streamOptimized ${IMAGE} output-qemu/$(basename ${IMAGE} .raw).vmdk"
+      ],
+      "type": "shell-local"
+    }
+  ],
+  "provisioners": [
+    {
+      "script": "config/provision27.sh",
+      "type": "shell"
+    }
+  ]
+}
+
